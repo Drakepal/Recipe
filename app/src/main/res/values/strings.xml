@@ -4,4 +4,8 @@
     <string name="get_started">Get Started</string>
     <string name="all_recipes">All Recipes</string>
     <string name="category_name">Category Name</string>
+    <string name="_30_min">30 min</string>
+    <string name="_247_cals">247 cals</string>
+    <string name="_3_persons">3 persons</string>
+    <string name="ingredients">Ingredients</string>
 </resources>
