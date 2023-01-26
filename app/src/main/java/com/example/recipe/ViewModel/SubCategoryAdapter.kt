@@ -7,27 +7,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
 import kotlinx.android.synthetic.main.item_rv_main_category.view.*
 
-class MainCategoryAdapter: RecyclerView.Adapter<MainCategoryAdapter.RecipeViewHolder>() {
+class SubCategoryAdapter: RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolder>() {
 
-    var arrMainCategory = ArrayList<Recipes>()
+    var arrSubCategory = ArrayList<Recipes>()
 
     class RecipeViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     }
 
     fun setData(arrData: List<Recipes>) {
-        arrMainCategory = arrData as ArrayList<Recipes>
+        arrSubCategory = arrData as ArrayList<Recipes>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        return RecipeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_rv_main_category, parent, false))
+        return RecipeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.it_rv_sub_category, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.itemView.tv_dish_name.text = arrMainCategory[position].dishname
+        holder.itemView.tv_dish_name.text = arrSubCategory[position].dishname
     }
 
     override fun getItemCount(): Int {
-        return arrMainCategory.size
+        return arrSubCategory.size
     }
 }
