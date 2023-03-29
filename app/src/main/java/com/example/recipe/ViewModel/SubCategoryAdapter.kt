@@ -3,16 +3,16 @@ package com.example.recipe.ViewModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipe.R
-import kotlinx.android.synthetic.main.item_rv_main_category.view.*
 
 class SubCategoryAdapter: RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolder>() {
 
     var arrSubCategory = ArrayList<Recipes>()
 
     class RecipeViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
+        val tvDishName: TextView = itemView.findViewById(R.id.tv_dish_name)
     }
 
     fun setData(arrData: List<Recipes>) {
@@ -24,7 +24,7 @@ class SubCategoryAdapter: RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHold
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.itemView.tv_dish_name.text = arrSubCategory[position].dishname
+        holder.tvDishName.text = arrSubCategory[position].dishname
     }
 
     override fun getItemCount(): Int {

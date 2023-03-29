@@ -7,9 +7,12 @@ import com.example.recipe.R
 import com.example.recipe.ViewModel.MainCategoryAdapter
 import com.example.recipe.ViewModel.Recipes
 import com.example.recipe.ViewModel.SubCategoryAdapter
-import kotlinx.android.synthetic.main.activity_home.*
+import com.example.recipe.databinding.ActivityHomeBinding
+
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityHomeBinding
 
     var arrMainCategory = ArrayList<Recipes>()
     var arrSubCategory = ArrayList<Recipes>()
@@ -20,7 +23,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         arrMainCategory.add(Recipes(1, "Beef"))
         arrMainCategory.add(Recipes(2, "Chicken"))
@@ -36,12 +40,12 @@ class HomeActivity : AppCompatActivity() {
 
         subCategoryAdapter.setData(arrSubCategory)
 
-        rv_main_category.layoutManager = LinearLayoutManager(this@HomeActivity,
+        binding.rvMainCategory.layoutManager = LinearLayoutManager(this@HomeActivity,
         LinearLayoutManager.HORIZONTAL, false)
-        rv_main_category.adapter = mainCategoryAdapter
+        binding.rvMainCategory.adapter = mainCategoryAdapter
 
-        rv_sub_category.layoutManager = LinearLayoutManager(this@HomeActivity,
+        binding.rvSubCategory.layoutManager = LinearLayoutManager(this@HomeActivity,
         LinearLayoutManager.HORIZONTAL, false)
-        rv_sub_category.adapter = subCategoryAdapter
+        binding.rvSubCategory.adapter = subCategoryAdapter
     }
 }
