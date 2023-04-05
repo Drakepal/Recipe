@@ -12,8 +12,8 @@ import com.example.recipe.Model.MealItems
 @Dao
 interface RecipeDao {
 
-    @Query("SELECT * FROM category ORDER BY id DESC")
-    suspend fun getAllCategory(): List<Category>
+    @Query("SELECT * FROM categoryitems ORDER BY id DESC")
+    suspend fun getAllCategory(): List<CategoryItems>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(categoryItems: CategoryItems?)
