@@ -2,6 +2,7 @@ package com.example.recipe.View
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.recipe.Model.*
@@ -39,8 +40,13 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks,
         val service = RetroClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getCategoryList()
         call.enqueue(object : Callback<Category> {
-            override fun onResponse(call: Call<Category>, response: Response<Category>) {
+            override fun onResponse(
+                call: Call<Category>,
+                response: Response<Category>) {
 
+                for (arr in response.body()!!.categories!!) {
+                    getMeal(arr.strcategory)
+                }
                 insertDataIntoRoomDb(response.body())
 
             }
@@ -73,8 +79,34 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks,
         })
     }
 
-    private fun insertMealDataIntoRoomdb(categoryName: String, body: Meal?) {
+    private fun insertMealDataIntoRoomdb(categoryName: String, meal: Meal?) {
 
+        launch {
+            this.let {
+
+                for (arr in meal!!.mealsItem!!) {
+                    var mealItemModel = MealItems(
+                        arr.id,
+                        arr.idMeal,
+                        categoryName,
+                        arr.strMeal,
+                        arr.strMealThumb
+                    )
+                    RecipeDatabase.getDatabase(this@SplashActivity)
+                        .recipeDao().insertMeal(mealItemModel)
+                    Log.d("mealData", arr.toString())
+                }
+                binding.btnGetStarted.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun clearDataBase() {
+        launch {
+            this.let {
+                RecipeDatabase.getDatabase(this@SplashActivity).recipeDao().clearDb()
+            }
+        }
     }
 
     fun insertDataIntoRoomDb(category: Category?) {
@@ -97,6 +129,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks,
 
     private fun readStoreTask() {
         if (hasReadStoragePermissions()) {
+            clearDataBase()
             getCategories()
         } else {
             EasyPermissions.requestPermissions(
